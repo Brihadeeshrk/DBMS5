@@ -42,7 +42,6 @@ Exercise-II {
             2. Display all suppliers who supply the part with part identifier: #PID.
         f) Write a PL/SQL program to display the contents of the above tables and then
         update the quantity of parts shipped by 5%.
-
 }
 
 Exercise-III {

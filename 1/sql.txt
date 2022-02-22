@@ -43,20 +43,6 @@ CREATE TABLE works_on (
     FOREIGN KEY (Pno) REFERENCES project(Pno)
 );
 
-// INSERT VALUES INTO ALL 3 TABLES
- 
-INSERT INTO employee VALUES ('E01', 'ADAM', 100, 10000);
-INSERT INTO employee VALUES ('E02', 'TOM', 100, 12500);
-INSERT INTO employee VALUES ('E03', 'JERRY', 101, 13000);
-
-INSERT INTO project VALUES (01, 'DATABASE');
-INSERT INTO project VALUES (02, 'CLOUD');
-
-INSERT INTO works_on VALUES ('E01', 01, 7);
-INSERT INTO works_on VALUES ('E01', 02, 6);
-INSERT INTO works_on VALUES ('E02', 01, 11);
-INSERT INTO works_on VALUES ('E03', 02, 13);
-
 i)  SELECT *
     FROM employee
     WHERE SSN IN (
