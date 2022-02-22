@@ -28,6 +28,7 @@ db.TRANSACTIONS.insert({
     "Acc_Type": 'Savings',
     "Tran_Type": 'Withdrawal'
 })
+db.TRANSACTIONS.find().pretty()
 
 i) db.TRANSACTIONS.find({"Branch_ID": 123}, {_id: 0, Customer_Name: 0, Acc_Type: 0, Tran_Type: 0}).pretty()
 ii) db.TRANSACTIONS.aggregate([
