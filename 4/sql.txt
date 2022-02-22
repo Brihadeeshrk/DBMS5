@@ -63,5 +63,5 @@ d)
         WHERE WNO = (
             SELECT WNO
             FROM SHIPMENTS
-            WHERE 
+            WHERE ... incomplete
         )
