@@ -1,7 +1,7 @@
 f) Write a PL/SQL procedure to print the first 8 Fibonacci numbers and a program to call the same.
 
 SET SERVEROUTPUT ON
-DECLARE
+CREATE OR REPLACE PROCEDURE findFibonacci
     first number := 0;
     second number := 1;
     third number;
@@ -20,3 +20,6 @@ BEGIN
     END LOOP;
 END;
 /
+
+EXECUTE findFibonacci;  //executing the procedure
+SHOW ERROR PROCEDURE findFibonacci; // debuggging query to see the errors
