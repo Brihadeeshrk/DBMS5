@@ -76,6 +76,8 @@ ii) SELECT BID, S.NAME
     JOIN SAILOR S
     ON R.SID = S.SID
 
-iii)    SELECT COUNT(BID), SID
-        FROM reserves
+iii)    SELECT COUNT(BID), R.SID, S.SNAME
+        FROM reserves R
+        JOIN SAILOR S
+        USING(SID)
         GROUP BY SID;
