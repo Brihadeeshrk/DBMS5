@@ -1,6 +1,6 @@
 e) Create the table, insert suitable tuples and perform the following operations using
     MongoDB
-        1. Obtain the name of the student who has borrowed the book bearing ISBN ‘123’.
+        1. Obtain the book details authored by “author_name”.
         2. Obtain the Names of students who have borrowed “Database” books.
 
 db.createCollection("LIBRARY")
@@ -40,5 +40,5 @@ db.LIBRARY.insert({
 
 db.LIBRARY.find().pretty()
 
-i) db.LIBRARY.find({"ISBN" : '123'}).pretty()
+i) db.LIBRARY.find({"AUTHOR":'MSRIT'}).pretty()
 ii) db.LIBRARY.find({"TITLE" : 'DATABASE'},{_id:0, ISBN:0, AUTHOR:0,TITLE:0, PUBLISHER:0, SEMESTER:0})

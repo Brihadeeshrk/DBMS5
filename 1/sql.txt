@@ -55,9 +55,18 @@ i)  SELECT *
                 )
     );
 
-ii) SELECT COUNT(SSN), Department_No
-    FROM employee
+ii) SELECT COUNT(*), Department_No
+    FROM employee E
     GROUP BY Department_No;
+
+    // YOU HAVE TO USE JOINS HERE -> BECAUSE THEYVE MENTIONED ALONG WITH DEPARTMENT DETAILS
+    ASSUMING WE HAVE A SEPARATE TABLE FOR DEPARTMENT => | DNO | DNAME |
+    SO, 
+
+    SELECT e.COUNT(*), d.DNO, d.DNAME
+    FROM employee e
+    JOIN department d ON e.Department_No = d.DNO
+    GROUP BY e.Department_No;
 
 iii)    UPDATE works_on
         SET Pno = 01

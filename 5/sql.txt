@@ -26,6 +26,7 @@ d)
         USN VARCHAR(10) PRIMARY KEY,
         NAME VARCHAR(10),
         SEM INT,
+        SEX VARCHAR(3),
         DEPT VARCHAR(4)
     );
 
@@ -54,7 +55,7 @@ d)
             SELECT ISBN
             FROM BOOKS
             WHERE TITLE='DATABASE'
-        )
+        ) AND SEX='F'
     );
 
 3.  SELECT USN, COUNT(ISBN)

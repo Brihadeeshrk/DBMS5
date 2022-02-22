@@ -1,30 +1,35 @@
-e) Create the table, insert suitable tuples and perform the following operations using MongoDB
-    1. Find the parts shipped from warehouse :Wname”
-    2. List the total quantity supplied from each warehouse
+d) Create the table, insert suitable tuples and perform the following operations using
+    MongoDB
+        1. Find the branch name for a given Branch_ID.
+        2. List the total number of accounts for each customer.
 
-db.createCollection("SHIPMENT")
+db.createCollection("TRANSACTIONS")
 
-db.SHIPMENT.insert({
-    "PNO":11,
-    "PNAME":'bolts',
-    "COLOUR":'Black',
-    "WNO":99, 
-    "WNAME":'ABC',
-    "QUANTITY":45,
-    "DATE":'2017-09-25'
+db.TRANSACTIONS.insert({
+    "Branch_ID": 123,
+    "Branch_Name": 'Mathikere',
+    "Customer_Name": 'Benny',
+    "Acc_Type": 'Savings',
+    "Tran_Type": 'Deposit'
 })
 
-db.SHIPMENT.insert({
-    "PNO":12,
-    "PNAME":'nuts',
-    "COLOUR":'Black',
-    "WNO":99, 
-    "WNAME":'ABC',
-    "QUANTITY":38,
-    "DATE":'2017-09-28'
+db.TRANSACTIONS.insert({
+    "Branch_ID": 123,
+    "Branch_Name": 'Mathikere',
+    "Customer_Name": 'Benny',
+    "Acc_Type": 'Current',
+    "Tran_Type": 'Deposit'
 })
 
-i) DB.SHIPMENT.find({"WNAME":'XYZ'}).pretty()
-ii) db.SHIPMENT.aggregate([
-    {"$group" : {_id: "$WNAME", total: {$sum:"$Q"}}}
+db.TRANSACTIONS.insert({
+    "Branch_ID": 124,
+    "Branch_Name": 'Shivajinagar',
+    "Customer_Name": 'Anthony',
+    "Acc_Type": 'Savings',
+    "Tran_Type": 'Withdrawal'
+})
+
+i) db.TRANSACTIONS.find({"Branch_ID": 123}, {_id: 0, Customer_Name: 0, Acc_Type: 0, Tran_Type: 0}).pretty()
+ii) db.TRANSACTIONS.aggregate([
+    {"$group" : {_id: "$Customer_Name", count: {$sum:1}}}
 ])

@@ -1,32 +1,24 @@
 e) Using cursors demonstrate the process of copying the contents of one table to a new table.
 
-CREATE TABLE PART1(PNO INT, PNAME CHAR(20), COLOR CHAR(20), PRIMARY KEY(PNO));
-CREATE TABLE COPY_PART1(PNO INT, PNAME CHAR(20), COLOR CHAR(20), PRIMARY KEY(PNO));
-
-INSERT INTO PART1 VALUES(10, 'HAMMER', 'GRAY');
-INSERT INTO PART1 VALUES(11, 'ANVIL', 'BLACK');
-INSERT INTO PART1 VALUES(12, 'SCREW', 'RED');
-
 SET SERVEROUTPUT ON
 DECLARE
-    CURSOR CURR
-        IS SELECT *
-        FROM PART1;
-    COUNTER INT;
-    ROWS PART1 % ROWTYPE;
-BEGIN
-    OPEN CURR;
-    LOOP
-        FETCH CURR INTO ROWS;
-        EXIT WHEN CURR%NOTFOUND;
-        INSERT INTO COPY_PART1 VALUES(
-            ROWS.PNO, ROWS.PNAME, ROWS.PCOLOR
-        );
-    END LOOP;
-    COUNTER := CURR%ROWCOUNT;
-    CLOSE CURR;
-    dbms_output.put_line(COUNTER||'ROWS INSERTED INTO THE COPY TABLE COPY_PART1');
+    c_id    employee_detail.ssn%type;
+    c_name  employee_detail.Name%type;
+    c_salary    employee_detail.salary%type;
+    c_deptno    employee_detail.deptno%type;
+    CURSOR c1
+        IS SELECT SSN, NAME, SALARY, DEPTNO
+        FROM EMPLOYEE_DETAIL;
 
-END;
-/
-:wq
+    BEGIN
+        OPEN c1;
+        LOOP
+            FETCH C1 INTO c_id, c_name, c_salary, c_deptno;
+            EXIT WHEN c1%notfound;
+        INSERT INTO EMPLOYEE_DETAIL_COPY VALUES(c_id, c_name, c_salary, c_deptno);
+        END LOOP;
+        CLOSE c1;
+
+        dbms_output.put_line('Succesfully copied to a new table);
+    END;
+    /
