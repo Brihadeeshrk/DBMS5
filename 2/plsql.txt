@@ -1,3 +1,2 @@
-f) Write a PL/SQL program to display the contents of the above tables and then
-update the quantity of parts shipped by 5%.
-
+f) Write a PL/SQL program to copy the contents of the Shipment table to another table for maintaining 
+    records for specific part number.

@@ -8,8 +8,9 @@ Consider the Book Lending system from the library- BOOKS, STUDENT,BORROWS. The s
         d) Create the above tables, insert suitable tuples and perform the following operations
         in SQL:
             1. Obtain the name of the student who has borrowed the book bearing ISBN ‘123’
-            2. Obtain the Names of students who have borrowed database books.
-            3. Find the number of books borrowed by each student.
+            2. Obtain the Names of female students who have borrowed database books.
+            3. Find the number of books borrowed by each student. Display the student
+            details along with the number of books.
 
 a)
 b)
@@ -58,6 +59,10 @@ d)
         ) AND SEX='F'
     );
 
-3.  SELECT USN, COUNT(ISBN)
-    FROM BORROW
-    GROUP BY USN;
+3.  SELECT S.USN, 
+    S.NAME, S.SEX, S.SEM, 
+    S.DEPT, COUNT(ISBN)
+        FROM BORROW B
+        JOIN STUDENT S
+        USING USN
+        GROUP BY B.USN;

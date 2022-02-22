@@ -37,5 +37,3 @@ i) db.WAREHOUSE.update({"PNO" : 'PC4', {$set: {"PNO" : 'PC5'}}, {multi : true} }
 db.WAREHOUSE.find().pretty()
 
 ii) db.WAREHOUSE.find({"PNO" : "PC2"}).pretty()
-
-

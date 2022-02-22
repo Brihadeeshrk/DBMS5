@@ -54,6 +54,24 @@ CREATE TABLE TRANSACTION(
     WHERE B.BCODE = A.BCODE
     GROUP BY B.BCODE, B.NAME
 
-    3. ..
+    3.  SELECT *
+    FROM CUSTOMER
+    WHERE CID IN (
+        SELECT CID
+        FROM ACCOUNT
+        WHERE ANO IN (
+            SELECT ANO
+            FROM TRANSACTION
+            GROUP BY ANO
+            HAVING COUNT(ANO) >= 3
+        )
+    );
 
-    4. ..
+    4.  SELECT B.BCODE, B.BNAME, COUNT(A.ANO) AS TOTAL
+    FROM BRANCH B, ACCOUNT A
+    WHERE B.BCODE = A.BCODE
+    GROUP BY B.BCODE, B.BNAME
+    HAVING COUNT(A.ANO) < (
+        SELECT COUNT(ANO)/5
+        FROM ACCOUNT
+    );
