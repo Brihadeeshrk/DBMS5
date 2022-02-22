@@ -1,4 +1,5 @@
-# ISL57 - Database Management System Labs
+# ISL57 - Database Management System Labs - DBMS Labs
+
 
 ## Solutions to DBMS Lab
 
