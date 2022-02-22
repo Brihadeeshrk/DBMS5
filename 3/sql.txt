@@ -71,23 +71,7 @@ i)  SELECT *
 
     // 'JACK SPARROW' => S100 => B101 B100 => SELECT * FROM BOATS WHERE BID IN (B101, B100)
 
-ii) SELECT B.BID
-    FROM boats B
-    WHERE NOT EXISTS(
-        SELECT S.SID
-        FROM sailor S
-        WHERE NOT EXISTS(
-            SELECT R.SID
-            FROM reserves R
-            WHERE R.BID = B.BID AND R.SID = S.SID
-        )
-    );
-
-    OR
-
-    // NAME OF THE SAILOR AS WELL AS BID
-
-    SELECT BID, S.NAME
+ii) SELECT BID, S.NAME
     FROM RESERVES R
     JOIN SAILOR S
     ON R.SID = S.SID
