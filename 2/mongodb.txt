@@ -1,0 +1,41 @@
+f) Create the table, insert suitable tuples and perform the following operations using
+    MongoDB
+        1. Update the details of parts for a given part identifier: #PID.
+        2. Display all suppliers who supply the part with part identifier: #PID.
+
+db.createCollection("WAREHOUSE")
+
+db.WAREHOUSE.insert({
+    "PNO": 'PC2',
+    "PNAME": 'HARD TYRE',
+    "PCOLOR": 'WHITE',
+    "SNO": 'S1',
+    "SNAME": 'PIRELLI',
+    "SADDR": 'US'
+})
+db.WAREHOUSE.insert({
+    "PNO": 'PC3',
+    "PNAME": 'MEDIUM TYRE',
+    "PCOLOR": 'YELLOW',
+    "SNO": 'S1',
+    "SNAME": 'PIRELLI',
+    "SADDR": 'US'
+})
+db.WAREHOUSE.insert({
+    "PNO": 'PC4',
+    "PNAME": 'ULTRASOFT TYRE',
+    "PCOLOR": 'PURPLE',
+    "SNO": 'S2',
+    "SNAME": 'APOLLO',
+    "SADDR": 'UK'
+})
+
+//output full table
+db.WAREHOUSE.find().pretty()
+
+i) db.WAREHOUSE.update({"PNO" : 'PC4', {$set: {"PNO" : 'PC5'}}, {multi : true} })
+db.WAREHOUSE.find().pretty()
+
+ii) db.WAREHOUSE.find({"PNO" : "PC2"}).pretty()
+
+

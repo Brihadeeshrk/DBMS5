@@ -1,0 +1,92 @@
+Consider the relations: PART, SUPPLIER and SUPPLY. The Supplier relation holds information
+about suppliers. The attributes SID, SNAME, SADDR describes the supplier. The Part relation holds
+the attributes such as PID, PNAME and PCOLOR. The Shipment relation holds information about
+shipments that include SID and PID attributes identifying the supplier of the shipment and the part
+shipped, respectively. The Shipment relation should contain information on the number of parts
+shipped.
+    a) Mention the constraints neatly.
+    b) Design the ER diagram for the problem statement
+    c) State the schema diagram for the ER diagram.
+    d) Create the above tables, insert suitable tuples and perform the following operations in
+    Oracle SQL:
+        1. Obtain the details of parts supplied by supplier #SNAME.
+        2. Obtain the Names of suppliers who supply #PNAME.
+    e) Delete the parts which are in #PCOLOR.
+
+a)  PART - PRIMARY KEY(PID)
+    SUPPLIER - PRIMARY KEY(SID)
+    SUPPLY - PRIMARY KEY(SID, PID)
+                FOREIGN KEY(SID)
+                FOREIGN KEY(PID)
+
+b) -
+
+c) - 
+
+d) 
+CREATE TABLE part (
+    PID VARCHAR(5) PRIMARY KEY,
+    PName VARCHAR(15),
+    PColor VARCHAR(15)
+);
+
+CREATE TABLE supplier (
+    SID VARCHAR(5) PRIMARY KEY,
+    SName VARCHAR(15),
+    SAddr VARCHAR(30)
+);
+
+CREATE TABLE supply (
+    PID VARCHAR(5),
+    SID VARCHAR(5),
+    Quantity NUMBER(3),
+    FOREIGN KEY (PID) REFERENCES part(PID) ON DELETE CASCADE,
+    FOREIGN KEY (SID) REFERENCES supplier(SID) ON DELETE CASCADE,
+    PRIMARY KEY(PID, SID)
+);
+
+// INSERT VALUES INTO ALL 3 TABLES
+INSERT INTO part VALUES ('PC2', 'HARD TYRE', 'WHITE');
+INSERT INTO part VALUES ('PC3', 'MEDIUM TYRE', 'YELLOW');
+INSERT INTO part VALUES ('PC4', 'SOFT TYRE', 'RED');
+INSERT INTO part VALUES ('PC5', 'ULTRASOFT TYRE', 'PURPLE');
+
+INSERT INTO supplier VALUES ('S1', 'PIRELLI', 'UK');
+INSERT INTO supplier VALUES ('S2', 'APOLLO', 'US');
+
+INSERT INTO supply VALUES ('PC2', 'S1', 8);
+INSERT INTO supply VALUES ('PC3', 'S1', 4);
+INSERT INTO supply VALUES ('PC4', 'S1', 2);
+INSERT INTO supply VALUES ('PC2', 'S2', 10);
+INSERT INTO supply VALUES ('PC4', 'S2', 12);
+
+i)  SELECT * 
+    FROM part
+    WHERE PID IN (
+        SELECT PID
+        FROM supply
+        WHERE SID = (
+            SELECT SID
+            FROM supplier
+            WHERE SName = 'PIRELLI'
+        )
+    );
+
+    // 'PIRELLI' => S1 => PC2, PC3, PC4 => SELECT * FROM parts WHERE PID IN (PC2, PC3, PC4)
+
+ii) SELECT *
+    FROM supplier
+    WHERE SID IN (
+        SELECT SID
+        FROM supply
+        WHERE PID = (
+            SELECT PID
+            FROM part
+            WHERE PName = 'SOFT TYRE'
+        )
+    );
+
+    // 'SOFT TYRE' => PC4 => S1, S2 => SELECT * FROM supplier WHERE SID IN (S1, S2)
+
+e) DELETE FROM part
+WHERE PColor = 'PURPLE';

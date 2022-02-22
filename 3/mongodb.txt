@@ -1,0 +1,44 @@
+e) Create the table, insert suitable tuples and perform the following operations using
+        MongoDB.
+            1. Obtain the number of boats obtained by sailor :#Sailor_Name
+            2. Retrieve boats of color :”#color”
+
+db.createCollection("BOATRES")
+
+db.BOATRES.insert({
+    "BID": 'B100',
+    "BNAME": 'TITANIC',
+    "BCOLOR": 'BLACK',
+    "SNAME": 'JACK DAWSON',
+    "SID": 'S100',
+    "DAY": 'SUN'
+})
+db.BOATRES.insert({
+    "BID": 'B101',
+    "BNAME": 'BLACKPEARL',
+    "BCOLOR": 'BLACK',
+    "SNAME": 'JACK SPARROW',
+    "SID": 'S101',
+    "DAY": 'MON'
+})
+db.BOATRES.insert({
+    "BID": 'B102',
+    "BNAME": 'DUTCHMAN',
+    "BCOLOR": 'BLACK',
+    "SNAME": 'DAVY JONES',
+    "SID": 'S102',
+    "DAY": 'TUE'
+})
+db.BOATRES.insert({
+    "BID": 'B100',
+    "BNAME": 'TITANIC',
+    "BCOLOR": 'BLACK',
+    "SNAME": 'JACK SPARROW',
+    "SID": 'S101',
+    "DAY": 'MON'
+})
+
+db.BOATRES.find().pretty()
+i)  db.BOATRES.find({"SNAME" : 'JACK SPARROW'}).count()
+
+ii) db.BOATRES.find({"BCOLOR" : 'BLACK' }).pretty()

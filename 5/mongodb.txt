@@ -1,0 +1,44 @@
+e) Create the table, insert suitable tuples and perform the following operations using
+    MongoDB
+        1. Obtain the book details authored by “author_name”.
+        2. Obtain the Names of students who have borrowed “Database” books.
+
+db.createCollection("LIBRARY")
+
+db.LIBRARY.insert({
+    "ISBN" : '1AEZD22',
+    "AUTHOR" : 'BEHROUZ FUROUZAN',
+    "TITLE" : 'DC AND CN',
+    "PUBLISHER" : 'FUROUZAN PUBLICATION',
+    "BORROWEDBY" : 'ABHISHEK',
+    "SEMESTER": 5
+})
+db.LIBRARY.insert({
+    "ISBN" : '1AE2SSD2',
+    "AUTHOR" : 'MSRIT',
+    "TITLE" : 'DATABASE',
+    "PUBLISHER" : 'ABC',
+    "BORROWEDBY" : 'DHANANJAY',
+    "SEMESTER": 6
+})
+db.LIBRARY.insert({
+    "ISBN" : '12SSEDWR',
+    "AUTHOR" : 'MSRIT',
+    "TITLE" : 'DATABASE',
+    "PUBLISHER" : 'ABC',
+    "BORROWEDBY" : 'AKHILESH',
+    "SEMESTER": 4
+})
+db.LIBRARY.insert({
+    "ISBN" : '1S3CVMRR',
+    "AUTHOR" : 'MSRIT',
+    "TITLE" : 'DATABASE',
+    "PUBLISHER" : 'ABC',
+    "BORROWEDBY" : 'VINOD',
+    "SEMESTER": 5
+})
+
+db.LIBRARY.find().pretty()
+
+i) db.LIBRARY.find({"AUTHOR":'MSRIT'}).pretty()
+ii) db.LIBRARY.find({"TITLE" : 'DATABASE'},{_id:0, ISBN:0, AUTHOR:0,TITLE:0, PUBLISHER:0, SEMESTER:0})

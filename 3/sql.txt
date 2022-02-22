@@ -1,0 +1,97 @@
+Consider the relations BOAT, SAILOR and RESERVES. The relation BOAT identifies the features
+    of a boat such as unique identifier, color and a name. The list of sailors with attributes such as SailorID,
+    name, age etc., are stored in the relation SAILOR. The sailors are allowed to reserve any number of
+    boats on any day of the week and the records are to be updated in the RESERVES table.
+        a) Mention the constraints neatly.
+        b) Design the ER diagram for the problem statement
+        c) State the schema diagram for the ER diagram.
+        d) Create the tables, insert suitable tuples and perform the following operations in SQL:
+            1. Obtain the details of the boats reserved by ‘#Sailor_Name’.
+            2. Retrieve the BID of the boats reserved  by all the sailors.
+            3. Find the number of boats reserved by each sailor. Display the Sailor_Name
+            along with the number of boats reserved.
+
+a)  BOAT - BID PK
+    SAILOR - SID PK
+    RESERVES - (BID, SID) PK
+                BID FK
+                SID FK
+
+b) - 
+
+c) - 
+
+d) 
+CREATE TABLE boat (
+    BID VARCHAR(5) PRIMARY KEY,
+    BNAME VARCHAR(10),
+    BCOLOR VARCAHAR(10)
+);
+
+CREATE TABLE sailor (
+    SID VARCHAR(5) PRIMARY KEY,
+    SNAME VARCHAR(10),
+    AGE NUMBER(3)
+);
+
+CREATE TABLE reserves (
+    SID VARCHAR(5),
+    BID VARCHAR(5),
+    DAY VARCHAR(10),
+    FOREIGN KEY (SID) REFERENCES sailor(SID),
+    FOREIGN KEY (BID) REFERENCES boat(BID),
+    PRIMARY KEY(SID, BID)
+);
+
+//INSERT VALUES INTO ALL 3 TABLES
+INSERT INTO boat VALUES ('B100', 'TITANIC', 'BLACK');
+INSERT INTO boat VALUES ('B101', 'BLACKPEARL', 'BLACK');
+INSERT INTO boat VALUES ('B102', 'DUTCHMAN', 'BLACK');
+
+INSERT INTO sailor VALUES ('S100', 'JACK SPARROW', 40);
+INSERT INTO sailor VALUES ('S101', 'JACK DAWSON', 23);
+INSERT INTO sailor VALUES ('S102', 'DAVY JONES', 89);
+
+INSERT INTO reserves VALUES ('S102', 'B102', 'SUN');
+INSERT INTO reserves VALUES ('S100', 'B101', 'MON');
+INSERT INTO reserves VALUES ('S101', 'B100', 'TUE');
+INSERT INTO reserves VALUES ('S100', 'B100', 'TUE');
+
+i)  SELECT *
+    FROM boats
+    WHERE BID IN (
+        SELECT BID
+        FROM reserves
+        WHERE SID = (
+            SELECT SID
+            FROM sailor
+            WHERE SNAME = 'JACK SPARROW'
+        )
+    );
+
+    // 'JACK SPARROW' => S100 => B101 B100 => SELECT * FROM BOATS WHERE BID IN (B101, B100)
+
+ii) SELECT B.BID
+    FROM boats B
+    WHERE NOT EXISTS(
+        SELECT S.SID
+        FROM sailor S
+        WHERE NOT EXISTS(
+            SELECT R.SID
+            FROM reserves R
+            WHERE R.BID = B.BID AND R.SID = S.SID
+        )
+    );
+
+    OR
+
+    // NAME OF THE SAILOR AS WELL AS BID
+
+SELECT BID, S.NAME
+FROM RESERVES R
+JOIN SAILOR S
+ON R.SID = S.SID
+
+iii)    SELECT COUNT(BID), SID
+        FROM reserves
+        GROUP BY SID;

@@ -1,0 +1,35 @@
+d) Create the table, insert suitable tuples and perform the following operations using
+    MongoDB
+        1. Find the branch name for a given Branch_ID.
+        2. List the total number of accounts for each customer.
+
+db.createCollection("TRANSACTIONS")
+
+db.TRANSACTIONS.insert({
+    "Branch_ID": 123,
+    "Branch_Name": 'Mathikere',
+    "Customer_Name": 'Benny',
+    "Acc_Type": 'Savings',
+    "Tran_Type": 'Deposit'
+})
+
+db.TRANSACTIONS.insert({
+    "Branch_ID": 123,
+    "Branch_Name": 'Mathikere',
+    "Customer_Name": 'Benny',
+    "Acc_Type": 'Current',
+    "Tran_Type": 'Deposit'
+})
+
+db.TRANSACTIONS.insert({
+    "Branch_ID": 124,
+    "Branch_Name": 'Shivajinagar',
+    "Customer_Name": 'Anthony',
+    "Acc_Type": 'Savings',
+    "Tran_Type": 'Withdrawal'
+})
+
+i) db.TRANSACTIONS.find({"Branch_ID": 123}, {_id: 0, Customer_Name: 0, Acc_Type: 0, Tran_Type: 0}).pretty()
+ii) db.TRANSACTIONS.aggregate([
+    {"$group" : {_id: "$Customer_Name", count: {$sum:1}}}
+])

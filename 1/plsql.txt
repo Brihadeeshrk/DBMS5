@@ -1,0 +1,12 @@
+f) Write a program that gives all employees in Department #number a 15% pay increase.
+    Display a message displaying how many employees were awarded the increase.
+
+BEGIN
+update employee
+set salary = salary + (0.15*salary)
+where Department_No = 100;
+
+dbms_output.put_line('Number of Employees whose salary was incremented = ' || sql%rowcount);
+END;
+/
+:wq

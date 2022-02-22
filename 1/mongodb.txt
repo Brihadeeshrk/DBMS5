@@ -1,0 +1,24 @@
+e) Create the table, insert suitable tuples and perform the following operations using
+    MongoDB
+        1. List all the employees of Department named #Dept_name.
+        2. Name the employees working on Project Number :#Project_No
+
+db.createCollection("EMPLOYEE")
+db.EMPLOYEE.insert({
+    "SSN": 'E01', 
+    "NAME": 'ADAM',
+    "Department_Name": 'CLOUD',
+    "Pno": 01
+})
+db.EMPLOYEE.insert({
+    "SSN": 'E02', 
+    "NAME": 'TOM',
+    "Department_Name": 'DATABASE',
+    "Pno": 02
+})
+
+// this will output the entire table
+db.EMPLOYEE.find().pretty()
+
+1) db.EMPLOYEE.find({"Department_Name" : 'CLOUD'}).pretty()
+2) db.EMPLOYEE.find({"Pno" : 02}).pretty()
