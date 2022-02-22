@@ -52,7 +52,7 @@ d)
     WHERE USN IN (
         SELECT USN
         FROM BORROW
-        WHERE ISBN = (
+        WHERE ISBN IN (
             SELECT ISBN
             FROM BOOKS
             WHERE TITLE='DATABASE'
