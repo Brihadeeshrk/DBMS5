@@ -1,76 +1,67 @@
-Consider the Banking database – CUSTOMER, BRANCH, ACCOUNT and TRANSACTION. An
-    account can be a savings account or a current account. Customer can have both types of accounts. The
-    transactions can be a deposit or a withdrawal. Mention the constraints neatly
-        a) Design the ER diagram for the problem statement
-        b) State the schema diagram for the ER diagram.
-        c) Create the above tables, insert suitable tuples and perform the following operations in
+Consider the Shipment – Warehouse case study. Different parts like nut, bolts etc., are being 
+    shipped to different warehouses. The quantity and date of shipment are recorded for each part 
+    stored within the warehouse. The address of the warehouse also stored for shipment purposes.
+        a) Mention the constraints neatly.
+        b) Design the ER diagram for the problem statement
+        c) State the schema diagram for the ER diagram.
+        d) Create the above tables, insert suitable tuples and perform the following operations in
         SQL:
-            1. Obtain the details of customers who have both Savings and Current Account.
-            2. Retrieve the details of branches and the number of accounts in each branch.
-            3. Obtain the details of customers who have performed at least 3 transactions.
-            4. List the details of branches where the number of accounts is less than the
-            average number of accounts in all branches.
+            1. Obtain the Names of warehouses which have shipped red colored parts.
+            2. Retrieve the PNO of the parts shipped by all the warehouses.
+            3. Find the number of parts supplied by each warehouse.
+            4. List the warehouse details which ships maximum quantity of parts.
 
-a) -
-b) -
-c) 
-
-CREATE TABLE CUSTOMER(
-    CID NUMBER(5) PRIMARY KEY, 
-    CNAME VARCHAR2(30)
-);
-
-CREATE TABLE BRANCH(
-    BCODE VARCHAR2(5) PRIMARY KEY, 
-    BNAME VARCHAR2(30)
-);
-
-CREATE TABLE ACCOUNT( 
-    ANO VARCHAR2(5) PRIMARY KEY, 
-    ATYPE CHAR(2), 
-    BALANCE NUMBER(7), 
-    CID NUMBER(5), 
-    BCODE VARCHAR2(5),
-    FOREIGN KEY(CID) REFERENCES CUSTOMER(CID),
-    FOREIGN KEY(BCODE) REFERENCES BRANCH(BCODE)
-);
-
-CREATE TABLE TRANSACTION( 
-    TID VARCHAR2(5) PRIMARY KEY, 
-    ANO VARCHAR2(5),  
-    TTYPE CHAR(2), 
-    TDATE DATE, 
-    TAMOUNT NUMBER(7),
-    FORIGN KEY (ANO) REFERENCES ACCOUNT(ANO)
-);
-
-    1. SELECT A1.CID
-    FROM ACCOUNT A1, ACCOUNT A2
-    WHERE A1.ATYPE='S' AND A2.TYPE='C'
-    AND A1.CID = A2.CID;
-
-    2.  SELECT B.BCODE, B.NAME, COUNT(A.ANO)
-    FROM BRANCH B, ACCOUNT A
-    WHERE B.BCODE = A.BCODE
-    GROUP BY B.BCODE, B.NAME
-
-    3. SELECT *
-    FROM CUSTOMER
-    WHERE CID IN (
-        SELECT CID
-        FROM ACCOUNT
-        WHERE ANO IN (
-            SELECT ANO
-            FROM TRANSACTION T1, TRANSACTION T2
-            WHERE COUNT(ANO) >= 3 AND T1.ANO = T2.ANO
-        )
-    )
-
-    4. SELECT B.BCODE, B.NAME, COUNT(A.ANO)
-    FROM BRANCH B, ACCOUNT A
-    WHERE B.BCODE = A.BCODE
-    GROUP BY B.BCODE, B.BNAME
-    HAVING COUNT(A.ANO) < (
-        SELECT AVG(COUNT(A.ANO))
-        FROM ACCOUNT
+a)
+b)
+c)
+d)
+    CREATE TABLE PART (
+        PNO VARCHAR(10) PRIMARY KEY,
+        PNAME VARCHAR(10),
+        PCOLOR VARCHAR(10),
     );
+
+    CREATE TABLE WAREHOUSE (
+        WNO VARCHAR(10) PRIMARY KEY,
+        WNAME VARCHAR(10),
+        CITY VARCHAR(10)
+    );
+
+    CREATE TABLE SHIPMENT (
+        PNO VARCHAR(10),
+        WNO VARCHAR(10),
+        QUANTITY NUMBER(5),
+        DATEE VARCHAR(10),
+        FOREIGN KEY(PNO) REFERENCES PART(PNO) ON DELETE CASCADE,
+        FOREIGN KEY (WNO) REFERENCES WAREHOUSE(WNO) ON DELETE CASCADE
+    );
+
+    // INSERT VALUES INTO 3 TABLES
+    1.  SELECT WNAME
+        FROM WAREHOUSE
+        WHERE WNO IN (
+            SELECT WNO
+            FROM SHIPMENTS
+            WHERE PNO IN (
+                SELECT PNO
+                FROM PART
+                WHERE PCOLOR='RED'
+            )
+        );
+
+    2.  SELECT PNO, WNAME
+        FROM SHIPMENTS S 
+        JOIN WAREHOUSE W
+        ON S.WNO = W.WNO;
+
+    3.  SELECT COUNT(PNO), WNO
+        FROM SHIPMENTS
+        GROUP BY WNO;
+
+    4.  SELECT *
+        FROM WAREHOUSE 
+        WHERE WNO = (
+            SELECT WNO
+            FROM SHIPMENTS
+            WHERE 
+        )

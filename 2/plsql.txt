@@ -1,26 +1,3 @@
-g) Write a PL/SQL program to print Fibonacci series.
+f) Write a PL/SQL program to display the contents of the above tables and then
+update the quantity of parts shipped by 5%.
 
-i
-DECLARE
-{varname} {type} := {value} 
-first number := 0;
-second number := 1;
-third number;
-n number:= &n;
-i number;
-
-BEGIN
-dbms_output.put_line('Fibonacci Series is: ');
-dbms_output.put_line(first)
-dbms_output.put_line(second)
-
-for i in 2..n:
-loop
-third := first + second;
-first := second;
-second := third;
-dbms_output.put_line(third);
-end loop;
-end;
-/
-:wq
