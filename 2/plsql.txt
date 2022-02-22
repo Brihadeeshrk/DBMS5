@@ -1,2 +1,26 @@
 f) Write a PL/SQL program to copy the contents of the Shipment table to another table for maintaining 
     records for specific part number.
+
+CREATE TABLE SHIPMENTS(PID VARCHAR(5), SID VARCHAR(5), qty NUMBER(3), PRIMARY KEY(PID, SID))
+
+SET SERVEROUTPUT ON
+DECLARE
+    s_pid supply.pid%type;
+    s_sid supply.sid%type;
+    s_qty supply.qty%type;
+    CURSOR c1
+    IS SELECT pid, sid, qty
+    FROM supply;
+
+BEGIN
+    OPEN c1;
+    LOOP
+        FETCH c1 INTO s_pid, s_sid, s_qty;
+        EXIT WHEN c1%notfound;
+        INSERT INTO SHIPMENTS VALUES(s_pid, s_sid, s_qty);
+    END LOOP;
+        CLOSE c1;
+    dbms_output.put_line('Succesfully copied contents of supply into shipment');
+END;
+/
+:wq
