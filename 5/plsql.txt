@@ -8,7 +8,7 @@ CREATE OR REPLACE PROCEDURE findFibonacci
     n number := 8;
     i number;
 BEGIN
-    dbms_output.put_line('Fibonacci Series is: );
+    dbms_output.put_line('Fibonacci Series is: ');
     dbms_output.put_line(first);
     dbms_output.put_line(second);
     FOR i IN 2..n
